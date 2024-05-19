@@ -1,0 +1,81 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq_service
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - main_network
+    # volumes:
+    #   - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+    #   - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  
+  app:
+    build: ./application_service/
+    container_name: application_service
+    ports:
+      - 1337:1337
+    depends_on:
+      - rabbitmq
+    networks:
+      - main_network
+    restart: always
+  
+  commercial:
+    build: ./commercial_service/
+    container_name: commercial_service
+    depends_on:
+      - rabbitmq
+    networks:
+      - main_network
+    restart: always
+
+  ocr:
+    build: ./ocr_service/
+    container_name: ocr_service
+    depends_on:
+      - rabbitmq
+    networks:
+      - main_network
+    restart: always
+  
+  external_api:
+    build: ./external_api/
+    container_name: external_api
+    ports:
+      - 5000:5000
+    networks:
+      - main_network
+    restart: always
+
+  risk_management:
+    build: ./risk_management_service/
+    container_name: risk_management_service
+    depends_on:
+      - rabbitmq
+    networks:
+      - main_network
+    restart: always
+
+  notification:
+    build: ./notification_service/
+    container_name: notification_service
+    depends_on:
+      - rabbitmq
+    networks:
+      - main_network
+    restart: always
+
+  credit:
+    build: ./credit_service/
+    container_name: credit_service
+    depends_on:
+      - rabbitmq
+    networks:
+      - main_network
+    restart: always
+
+networks:
+  main_network:
