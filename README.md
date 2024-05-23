@@ -12,6 +12,8 @@ A simulation of microservices architecture, using RabbitMQ for reactive communic
 
 Link of problem: [TP4](https://insatunisia.github.io/TP-ArchLog/tp4/)
 
+Architecture & Sequence Diagram: [Miro](https://miro.com/app/board/uXjVN5gqADo=/?moveToWidget=3458764590084238783&cot=14)
+
 ## Architecture
 
 <p align="center">
